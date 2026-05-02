@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비밀번호 입력</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    .box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+    h2 {
+      margin-bottom: 24px;
+      font-size: 20px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 20px;
+      text-align: center;
+      letter-spacing: 8px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    input:focus {
+      border-color: #555;
+    }
+    button {
+      margin-top: 16px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #555;
+    }
+    .error {
+      margin-top: 12px;
+      color: #e55;
+      font-size: 14px;
+      display: none;
+    }
+    .result {
+      margin-top: 16px;
+      display: none;
+    }
+    .result a {
+      color: #3a7bd5;
+      font-size: 15px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🔒 비밀번호를 입력하세요</h2>
+    <input type="password" id="pwInput" inputmode="numeric" pattern="[0-9]*" placeholder="••••" maxlength="10">
+    <button onclick="checkPassword()">확인</button>
+    <p class="error" id="errorMsg">❌ 비밀번호가 틀렸습니다. 다시 시도해 주세요.</p>
+    <div class="result" id="result">
+      ✅ 확인되었습니다!<br><br>
+      <a id="notionLink" href="#" target="_blank">👉 페이지로 이동하기</a>
+    </div>
+  </div>
+
+  <script>
+    // ✏️ 여기를 수정하세요
+    const CORRECT_PASSWORD = "1234";           // ← 비밀번호
+    const NOTION_URL = "https://notion.so/your-page-id-here"; // ← 노션 URL
+
+    function checkPassword() {
+      const input = document.getElementById("pwInput").value;
+      const error = document.getElementById("errorMsg");
+      const result = document.getElementById("result");
+      const link = document.getElementById("notionLink");
+
+      if (input === CORRECT_PASSWORD) {
+        error.style.display = "none";
+        link.href = NOTION_URL;
+        result.style.display = "block";
+      } else {
+        result.style.display = "none";
+        error.style.display = "block";
+      }
+    }
+
+    // 엔터 키로도 확인 가능
+    document.getElementById("pwInput").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") checkPassword();
+    });
+  </script>
+</body>
+</html>
